@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas匀速直线运动</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <canvas id="canvas" width='1000' height='1000'>你的浏览器不支持canvas，请跟换其他浏览器试一试</canvas>
+	<button onclick="xixi()">123</button>
+    <script type="text/javascript" src="script.js"></script>
+	<script>
+		var context
+		window.onload=function(){
+			debugger
+			var canvas=document.getElementById('canvas');
+			context=canvas.getContext('2d');
+			context.fillStyle='red';
+			context.fill();
+			window.requestAnimationFrame(run);
+			setInterval(function(){
+				xixi();
+				
+			}, 800);
+
+		};
+		var speed=0;
+		var startPoint=0;
+		var danmu = [
+			{value:'123123123',SETx:0,top:100,color:'red'},
+			{value:'aaaa',SETx:0,top:400,color:'yellow'},
+			{value:'vxcvasdfasdf',SETx:0,top:200,color:'blue'},
+			{value:'456fg34534',SETx:0,top:800,color:'green'},
+		]
+		function run(){
+			speed=2;
+			var c=document.getElementById("canvas");  
+			console.log(c.width,c.height)
+			context.clearRect(0,0,c.width,c.height);
+			startPoint+=speed;
+			context.beginPath();
+			for (var i = danmu.length - 1; i >= 0; i--){
+				if(danmu[i].SETx>1024){
+					danmu.splice(i,1)
+				}
+				danmu[i].SETx += speed
+				context.fillStyle=danmu[i].color;
+				context.font = "40px Arial";
+				context.fillText(danmu[i].value, danmu[i].SETx, danmu[i].top);
+			}
+			context.arc(startPoint+50,200,30,0,2*Math.PI,true);
+			context.arc(startPoint,600,30,0,2*Math.PI,true);
+			context.closePath();
+			context.fill();
+			window.requestAnimationFrame(run);
+		}
+		let colorList = ['red','green','yellow','blue','black']
+		function xixi(){
+		debugger
+		let weizhi = Math.random().toFixed(2)*1000
+			let randomItem = colorList[Math.floor(Math.random() * colorList.length)];
+			danmu.push({value:'fasdfasdf',SETx:0,top:weizhi,color:randomItem})
+		}
+	</script>
+</body>
+</html>
